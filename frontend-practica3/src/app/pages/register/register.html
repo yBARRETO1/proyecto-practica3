@@ -1,0 +1,59 @@
+<div class="auth-container">
+
+<div class="auth-card">
+
+<h2>Crear Usuario</h2>
+
+<input
+type="text"
+placeholder="Nombre completo"
+[(ngModel)]="nombre_completo">
+
+<input
+type="email"
+placeholder="Correo"
+[(ngModel)]="correo">
+
+<input
+type="password"
+placeholder="Contraseña"
+[(ngModel)]="contrasena">
+
+
+<select [(ngModel)]="compania_id" (change)="onCompaniaChange()">
+
+<option [ngValue]="null">Seleccione compañía</option>
+
+<option *ngFor="let c of companias" [ngValue]="c.id">
+{{c.nombre}}
+</option>
+
+<option value="crear">➕ Crear nueva compañía</option>
+
+</select>
+
+
+
+
+
+<div *ngIf="crearCompaniaModo" class="nueva-compania">
+
+<input
+type="text"
+placeholder="Nombre nueva compañía"
+[(ngModel)]="nuevaCompania">
+
+<button (click)="crearCompania()">
+Guardar compañía
+</button>
+
+</div>
+
+
+<button (click)="registrar()">
+Registrar Usuario
+</button>
+
+</div>
+
+</div>

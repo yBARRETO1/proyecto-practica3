@@ -1,0 +1,102 @@
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+    <button class="menu-btn" (click)="toggleMenu()">
+        ☰
+    </button>
+
+</div>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" *ngIf="menuAbierto">
+
+    <button [routerLink]="'/dashboard'">Dashboard</button>
+
+    <button [routerLink]="'/generadores'">Generadores</button>
+
+    <button [routerLink]="'/recolectores'">Recolectores</button>
+
+    <button [routerLink]="'/disposicion'">Disposición Final</button>
+
+</div>
+
+<div class="powerbi-container">
+
+    <iframe title="Proyecto practica" style="width:100%; height:80vh; border:none;"
+        src="https://app.powerbi.com/view?r=eyJrIjoiMDY3N2ZkYjktNGI0Yi00ZTY0LWEyMDAtZjhjZTczYWRjMmUyIiwidCI6ImI0OWRiNjI0LTI1NDYtNDI1OS1iZjM2LTE5OWM2ZTk4ODAzMyIsImMiOjR9"
+        allowFullScreen="true">
+    </iframe>
+
+</div>
+<!-- CONTENIDO PRINCIPAL -->
+
+<div class="container">
+
+    <h1>Carga de Encuestas - Generadores</h1>
+
+
+    <!-- FORMULARIO -->
+
+    <div class="form">
+
+        <input type="file" (change)="onFileChange($event)">
+
+        <input type="number" placeholder="Número encuesta" [(ngModel)]="numero_encuesta">
+
+        <input type="date" [(ngModel)]="fecha_carga">
+
+        <button (click)="cargar()">
+            Cargar encuesta
+        </button>
+
+    </div>
+
+
+    <hr>
+
+
+    <!-- TABLA -->
+
+    <h2>Historial de cargas</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Encuesta</th>
+                <th>Fecha</th>
+                <th>Personas</th>
+                <th>Respuestas</th>
+                <th>Acciones</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let c of cargas">
+
+                <td>{{c.numero_encuesta}}</td>
+
+                <td>{{c.fecha_carga | date:'yyyy-MM-dd'}}</td>
+
+                <td>{{c.total_personas}}</td>
+
+                <td>{{c.total_respuestas}}</td>
+                <td>
+                    <button class="btn-eliminar" (click)="eliminar(c.id)">
+                        Eliminar
+                    </button>
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
