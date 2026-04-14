@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Usuarios {
 
-  private api = "http://localhost:3000/api/usuarios";
+  private api = "https://backend-practica3-973508854375.us-central1.run.app";
 
   constructor(private http: HttpClient) {}
 
