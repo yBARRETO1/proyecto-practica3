@@ -17,7 +17,7 @@ RUN ng build --configuration production
 # Etapa 2: nginx
 FROM nginx:alpine
 
-COPY --from=build /app/dist/frontend-practica3 /usr/share/nginx/html
+COPY --from=build /app/dist/frontend-practica3/browser /usr/share/nginx/html
 
 RUN sed -i 's/80/8080/g' /etc/nginx/conf.d/default.conf
 
