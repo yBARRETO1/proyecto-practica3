@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { Usuarios } from '../../services/usuarios';
-import { Companias } from '../../services/companias';
+import { UsuariosService } from '../../services/usuarios';
+import { CompaniasService } from '../../services/companias';
 
 @Component({
   selector: 'app-register',
@@ -28,21 +28,20 @@ export class Register implements OnInit {
   nuevaCompania = "";
 
   constructor(
-    private usuarios: Usuarios,
-    private companiasService: Companias,
+    private usuarios: UsuariosService,
+    private companiasService: CompaniasService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
 
     this.companiasService.listar()
       .subscribe((res: any) => {
-
         this.companias = res.data;
-
       });
 
   }
+
   onCompaniaChange() {
 
     if (this.compania_id === "crear") {
@@ -52,48 +51,43 @@ export class Register implements OnInit {
     }
 
   }
+
   activarCrearCompania() {
-
     this.crearCompaniaModo = true;
-
   }
 
   crearCompania() {
 
-  this.companiasService.crear(this.nuevaCompania)
-  .subscribe({
+    this.companiasService.crear({ nombre: this.nuevaCompania })
+      .subscribe({
 
-    next: (res:any) => {
+        next: (res: any) => {
 
-      alert("Compañía creada");
+          alert("Compañía creada");
 
-      // recargar lista de compañías
-      this.companiasService.listar()
-      .subscribe((data:any)=>{
+          // recargar lista
+          this.companiasService.listar()
+            .subscribe((data: any) => {
 
-        this.companias = data.data;
+              this.companias = data.data;
 
-        // seleccionar la última compañía creada
-        const ultima = this.companias[0];
+              const ultima = this.companias[0];
+              this.compania_id = ultima.id;
 
-        this.compania_id = ultima.id;
+            });
+
+          this.crearCompaniaModo = false;
+          this.nuevaCompania = "";
+
+        },
+
+        error: (err: any) => {
+          alert("Error creando compañía");
+        }
 
       });
 
-      this.crearCompaniaModo = false;
-
-      this.nuevaCompania = "";
-
-    },
-
-    error:(err)=>{
-      alert("Error creando compañía");
-    }
-
-  });
-
-}
-
+  }
 
   registrar() {
 
@@ -111,15 +105,12 @@ export class Register implements OnInit {
         next: (res: any) => {
 
           alert("Usuario creado correctamente");
-
           this.router.navigate(["/"]);
 
         },
 
-        error: (err) => {
-
+        error: (err: any) => {
           alert(err.error?.mensaje || "Error al registrar");
-
         }
 
       });

@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Companias {
+export class CompaniasService {
 
-  private api = "https://backend-practica3-973508854375.us-central1.run.app";
+  private apiUrl = `${environment.apiUrl}/companias`;
 
   constructor(private http: HttpClient) {}
 
-  listar(){
-    return this.http.get(this.api);
+  crear(data: any) {
+    return this.http.post(this.apiUrl, data);
   }
 
-  crear(nombre:string){
-    return this.http.post(this.api,{nombre});
+  listar() {
+    return this.http.get(this.apiUrl);
   }
-
 }

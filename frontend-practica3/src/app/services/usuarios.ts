@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Usuarios {
+export class UsuariosService {
 
-  private api = "https://backend-practica3-973508854375.us-central1.run.app";
+  private apiUrl = `${environment.apiUrl}/usuarios`;
 
   constructor(private http: HttpClient) {}
 
-  registrar(data:any){
-
-    return this.http.post(`${this.api}/registro`,data);
-
+  registrar(data: any) {
+    return this.http.post(`${this.apiUrl}/registro`, data);
   }
 
+  listar() {
+    return this.http.get(this.apiUrl);
+  }
 }

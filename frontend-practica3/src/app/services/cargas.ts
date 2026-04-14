@@ -1,53 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-providedIn:'root'
+  providedIn: 'root'
 })
 export class CargasService {
 
-api="https://backend-practica3-973508854375.us-central1.run.app";
+  private apiUrl = `${environment.apiUrl}`;
 
-constructor(private http:HttpClient){}
+  constructor(private http: HttpClient) {}
 
-private getHeaders(){
+  private getHeaders() {
+    const token = localStorage.getItem('token');
 
-const token = localStorage.getItem("token");
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+  }
 
-return {
-headers: new HttpHeaders({
-Authorization: `Bearer ${token}`
-})
-};
+  cargarEncuesta(formData: FormData) {
+    return this.http.post(
+      `${this.apiUrl}/respuestas/carga-masiva`,
+      formData,
+      this.getHeaders()
+    );
+  }
 
-}
+  listarCargas(actor_id: number) {
+    return this.http.get(
+      `${this.apiUrl}/cargas?actor_id=${actor_id}`,
+      this.getHeaders()
+    );
+  }
 
-cargarEncuesta(formData:FormData){
-return this.http.post(
-`${this.api}/respuestas/carga-masiva`,
-formData,
-this.getHeaders()
-);
-}
-
-listarCargas(actor_id:number){
-
-return this.http.get(
-`${this.api}/cargas?actor_id=${actor_id}`,
-this.getHeaders()
-);
-
-}
-eliminarCarga(id:number){
-
-const token = localStorage.getItem("token");
-
-return this.http.delete(`${this.api}/cargas/${id}`,{
-headers:{
-Authorization:`Bearer ${token}`
-}
-});
-
-}
-
+  eliminarCarga(id: number) {
+    return this.http.delete(
+      `${this.apiUrl}/cargas/${id}`,
+      this.getHeaders()
+    );
+  }
 }

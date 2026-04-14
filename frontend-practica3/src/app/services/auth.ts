@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
 
-  private apiUrl = 'https://backend-practica3-973508854375.us-central1.run.app';
+  private apiUrl = `${environment.apiUrl}/auth/login`;
 
   constructor(private http: HttpClient) {}
 

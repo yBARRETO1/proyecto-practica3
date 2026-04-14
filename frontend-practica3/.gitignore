@@ -1,5 +1,4 @@
 node_modules
-<<<<<<< HEAD
 dist
 .env
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
@@ -46,7 +45,3 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
-=======
-.env
-dist
->>>>>>> dc9093d39cb6d724a3fcafa0ea752ac1dbd3d7b8
