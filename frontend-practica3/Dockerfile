@@ -6,10 +6,15 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-COPY . .
-RUN npm run build --configuration production
+# 🔥 instalar angular cli
+RUN npm install -g @angular/cli
 
-# Etapa 2: servir con nginx
+COPY . .
+
+# 🔥 build correcto
+RUN ng build --configuration production
+
+# Etapa 2: nginx
 FROM nginx:alpine
 
 COPY --from=build /app/dist/frontend-practica3 /usr/share/nginx/html
