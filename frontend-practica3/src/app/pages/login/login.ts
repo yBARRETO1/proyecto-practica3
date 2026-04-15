@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Auth } from '../../services/auth';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class Login {
+export class Login implements AfterViewInit {
 
   correo = '';
   contrasena = '';
@@ -24,6 +24,23 @@ export class Login {
     private router: Router
   ) { }
 
+  // 🔥 ESTE MÉTODO ES EL NUEVO (NO rompe nada)
+  ngAfterViewInit() {
+    const video = document.querySelector('.video-bg') as HTMLVideoElement;
+
+    if (video) {
+      video.muted = true;
+
+      video.play()
+        .then(() => {
+          console.log("✅ Video reproduciéndose");
+        })
+        .catch(err => {
+          console.log("❌ Error reproduciendo video:", err);
+        });
+    }
+  }
+
   login() {
 
     const data = {
@@ -35,7 +52,7 @@ export class Login {
 
       next: (res: any) => {
 
-        localStorage.setItem("usuario",JSON.stringify(res.usuario));
+        localStorage.setItem("usuario", JSON.stringify(res.usuario));
         localStorage.setItem('token', res.token);
         this.router.navigate(['/dashboard']);
 
@@ -47,13 +64,11 @@ export class Login {
 
         this.mensaje = err?.error?.mensaje || "Credenciales inválidas";
 
-        // forzar apertura del modal inmediatamente
         setTimeout(() => {
           this.mostrarModal = true;
         });
 
       }
-
 
     });
 

@@ -1,44 +1,41 @@
-<!-- TOP BAR -->
+<div class="dashboard-layout">
 
-<div class="topbar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" *ngIf="menuAbierto">
+    <a routerLink="/dashboard">📊 Dashboard</a>
+    <a routerLink="/generadores">⚡ Generadores</a>
+    <a routerLink="/recolectores">🚛 Recolectores</a>
+    <a routerLink="/disposicion">🗑️ Disposición Final</a>
+  </aside>
 
-    <button class="menu-btn" (click)="toggleMenu()">
-        ☰
-    </button>
+  <!-- MAIN -->
+  <div class="main-content">
 
-</div>
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <button class="menu-btn" (click)="toggleMenu()">☰</button>
+      <h2>Recolectores</h2>
+    </div>
 
-
-<!-- SIDEBAR -->
-
-<div class="sidebar" *ngIf="menuAbierto">
-
-    <button [routerLink]="'/dashboard'">Dashboard</button>
-
-    <button [routerLink]="'/generadores'">Generadores</button>
-
-    <button [routerLink]="'/recolectores'">Recolectores</button>
-
-    <button [routerLink]="'/disposicion'">Disposición Final</button>
-
-</div>
-<div class="powerbi-container">
-
-    <iframe title="Proyecto practica" style="width:100%; height:80vh; border:none;"
+    <!-- POWER BI -->
+    <div class="powerbi-card">
+      <iframe 
+        title="Proyecto practica"
         src="https://app.powerbi.com/view?r=eyJrIjoiNDYxOTg1MDgtOWViYS00YzZmLWExNmMtOTlhMWYyN2Q3YjQyIiwidCI6ImI0OWRiNjI0LTI1NDYtNDI1OS1iZjM2LTE5OWM2ZTk4ODAzMyIsImMiOjR9"
         allowFullScreen="true">
-    </iframe>
+      </iframe>
+    </div>
 
-</div>
+    <!-- FORM + TABLA -->
+    <div class="table-card">
 
-<!-- CONTENIDO PRINCIPAL -->
+      <div class="table-header">
+        <h2>Carga de Encuestas</h2>
+        <p>Registro de información de recolectores</p>
+      </div>
 
-<div class="container">
-
-    <h1>Carga de Encuestas - Recolectores</h1>
-
-
-    <div class="form">
+      <!-- FORM -->
+      <div class="form">
 
         <input type="file" (change)="onFileChange($event)">
 
@@ -47,49 +44,54 @@
         <input type="date" [(ngModel)]="fecha_carga">
 
         <button (click)="cargar()">
-            Cargar encuesta
+          Cargar encuesta
         </button>
 
-    </div>
+      </div>
 
+      <!-- TABLA -->
+      <div class="table-wrapper">
 
-    <hr>
+        <table>
 
-
-    <h2>Historial de cargas</h2>
-
-    <table>
-
-        <thead>
+          <thead>
             <tr>
-                <th>Encuesta</th>
-                <th>Fecha</th>
-                <th>Personas</th>
-                <th>Respuestas</th>
-                <th>Acciones</th>
+              <th>Encuesta</th>
+              <th>Fecha</th>
+              <th>Personas</th>
+              <th>Respuestas</th>
+              <th>Acciones</th>
             </tr>
-        </thead>
+          </thead>
 
-        <tbody>
+          <tbody>
 
             <tr *ngFor="let c of cargas">
 
-                <td>{{c.numero_encuesta}}</td>
+              <td>{{c.numero_encuesta}}</td>
 
-                <td>{{c.fecha_carga | date:'yyyy-MM-dd'}}</td>
+              <td>{{c.fecha_carga | date:'yyyy-MM-dd'}}</td>
 
-                <td>{{c.total_personas}}</td>
+              <td>{{c.total_personas}}</td>
 
-                <td>{{c.total_respuestas}}</td>
+              <td>{{c.total_respuestas}}</td>
 
-                <td>
-                    <button class="btn-eliminar" (click)="eliminar(c.id)">
-                        Eliminar
-                    </button>
-                </td>
+              <td>
+                <button class="btn-eliminar" (click)="eliminar(c.id)">
+                  Eliminar
+                </button>
+              </td>
 
-        </tbody>
+            </tr>
 
-    </table>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>

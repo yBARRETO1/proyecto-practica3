@@ -1,43 +1,72 @@
-<div class="topbar">
+<div class="dashboard-layout">
 
-<button class="menu-btn" (click)="toggleMenu()">
-☰
-</button>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
 
-<button class="logout" *ngIf="mostrarLogout" (click)="logout()">
-🔓 Cerrar sesión
-</button>
+    <div class="logo">♻️ EcoPanel</div>
 
-</div>
+    <a [routerLink]="'/dashboard'">📊 Dashboard</a>
+    <a [routerLink]="'/generadores'">⚡ Generadores</a>
+    <a [routerLink]="'/recolectores'">🚛 Recolectores</a>
+    <a [routerLink]="'/disposicion'">🗑️ Disposición Final</a>
 
-<div class="dashboard-container">
+  </div>
 
-<h1>Bienvenido</h1>
+  <!-- CONTENIDO -->
+  <div class="main-content">
 
-<h2>{{usuario.nombre_completo}}</h2>
+    <!-- TOPBAR ORIGINAL MEJORADO -->
+    <div class="topbar">
 
-<h3>{{usuario.compania_nombre}}</h3>
+      <!-- <button class="menu-btn" (click)="toggleMenu()">
+        ☰
+      </button> -->
 
-</div>
-<div class="sidebar" *ngIf="menuAbierto">
+      <div class="welcome">
+        <h1>Bienvenido, {{usuario.nombre_completo}}</h1>
+        <p>{{usuario.compania_nombre}}</p>
+      </div>
 
-<button [routerLink]="'/dashboard'">Dashboard</button>
+      <button class="logout" *ngIf="mostrarLogout" (click)="logout()">
+        🔓 Cerrar sesión
+      </button>
 
-<button [routerLink]="'/generadores'">Generadores</button>
+    </div>
 
-<button [routerLink]="'/recolectores'">Recolectores</button>
+    <!-- SIDEBAR ORIGINAL (NO SE ELIMINA) -->
+    <div class="sidebar-old" *ngIf="menuAbierto">
 
-<button [routerLink]="'/disposicion'">Disposición Final</button>
+      <button [routerLink]="'/dashboard'">Dashboard</button>
+      <button [routerLink]="'/generadores'">Generadores</button>
+      <button [routerLink]="'/recolectores'">Recolectores</button>
+      <button [routerLink]="'/disposicion'">Disposición Final</button>
 
-</div>
+    </div>
 
-<div class="powerbi-container">
+    <!-- CONTENIDO ORIGINAL -->
+    <div class="dashboard-container">
 
-<iframe 
-title="Proyecto practica"
-style="width:100%; height:80vh; border:none;"
-src="https://app.powerbi.com/view?r=eyJrIjoiYjU1NWZmNjYtODcyOC00ZGU4LWJjNGEtZTZlNzA4YzE2ZmMzIiwidCI6ImI0OWRiNjI0LTI1NDYtNDI1OS1iZjM2LTE5OWM2ZTk4ODAzMyIsImMiOjR9"
-allowFullScreen="true">
-</iframe>
+      <h1>Bienvenido</h1>
+      <h2>{{usuario.nombre_completo}}</h2>
+      <h3>{{usuario.compania_nombre}}</h3>
+
+    </div>
+
+    <!-- POWER BI (INTOCABLE SOLO ENVUELTO) -->
+    <div class="powerbi-container">
+
+      <div class="powerbi-card">
+
+        <iframe 
+          title="Proyecto practica"
+          src="https://app.powerbi.com/view?r=eyJrIjoiYjU1NWZmNjYtODcyOC00ZGU4LWJjNGEtZTZlNzA4YzE2ZmMzIiwidCI6ImI0OWRiNjI0LTI1NDYtNDI1OS1iZjM2LTE5OWM2ZTk4ODAzMyIsImMiOjR9"
+          allowFullScreen="true">
+        </iframe>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>

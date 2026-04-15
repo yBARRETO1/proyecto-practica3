@@ -1,80 +1,203 @@
-body{
-  margin:0;
-  font-family: Arial, Helvetica, sans-serif;
+/* RESET */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-.auth-container{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: linear-gradient(135deg,#1976d2,#42a5f5);
+/* CONTENEDOR PRINCIPAL */
+.auth-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.auth-card{
-  width:360px;
-  background:white;
-  padding:40px;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  text-align:center;
+/* VIDEO DE FONDO */
+.video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  object-fit: cover;
+  z-index: -2;
+
+  transform: scale(1.05); /* mejora calidad visual */
 }
 
-.auth-card h2{
-  margin-bottom:30px;
-  color:#333;
+/* CAPA OSCURA SUAVE */
+.auth-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15); /* 🔥 mejor balance */
+  z-index: -1;
 }
 
-.auth-card input{
-  width:100%;
-  padding:12px;
-  margin-bottom:15px;
-  border:1px solid #ccc;
-  border-radius:5px;
-  font-size:14px;
+/* CARD GLASS */
+.auth-card {
+  position: relative;
+  z-index: 1;
+
+  width: 380px;
+  padding: 40px;
+  border-radius: 20px;
+
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.12);
+
+  border: 1px solid rgba(255,255,255,0.25);
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  text-align: center;
+  color: white;
+
+  animation: fadeInUp 0.8s ease;
 }
 
-.auth-card input:focus{
-  outline:none;
-  border-color:#1976d2;
+/* ANIMACIÓN */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.auth-card button{
-  width:100%;
-  padding:12px;
-  background:#1976d2;
-  border:none;
-  border-radius:5px;
-  color:white;
-  font-size:15px;
-  cursor:pointer;
-  transition:0.2s;
+/* TITULO */
+.auth-card h2 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
-.auth-card button:hover{
-  background:#1565c0;
+/* SUBTITULO */
+.subtitle {
+  font-size: 14px;
+  margin-bottom: 30px;
+
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
 }
 
-.link{
-  margin-top:20px;
-  font-size:14px;
+/* INPUTS */
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  background: rgba(255,255,255,0.15);
+  border-radius: 30px;
+  padding: 10px 15px;
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  transition: 0.3s;
 }
 
-.link a{
-  color:#1976d2;
-  text-decoration:none;
-  font-weight:bold;
+/* HOVER */
+.input-group:hover {
+  background: rgba(255,255,255,0.25);
 }
 
-.link a:hover{
-  text-decoration:underline;
+/* FOCUS PRO */
+.input-group:focus-within {
+  border: 1px solid #8b5cf6;
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 10px rgba(139,92,246,0.6);
 }
 
-.mensaje-exito{
-  margin-top:15px;
-  padding:10px;
-  border-radius:5px;
-  background:#ffe0e0;
-  color:#b00020;
-  font-size:14px;
+/* ICONOS */
+.input-group .icon {
+  margin-right: 10px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.9);
+}
+
+/* INPUT TEXTO */
+.input-group input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #ffffff;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* PLACEHOLDER */
+.input-group input::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+/* BOTÓN */
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s;
+
+  box-shadow: 0 0 15px rgba(139,92,246,0.6);
+}
+
+/* HOVER BOTÓN */
+.auth-card button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(139,92,246,0.9);
+}
+
+/* LINKS */
+.link {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.link a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link a:hover {
+  text-decoration: underline;
+}
+
+/* FORGOT */
+.forgot {
+  margin-top: 15px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* MENSAJE ERROR */
+.mensaje-exito {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 0, 0, 0.25);
+  color: #ff6b6b;
 }

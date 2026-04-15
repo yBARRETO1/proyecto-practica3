@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 import { UsuariosService } from '../../services/usuarios';
 import { CompaniasService } from '../../services/companias';
@@ -9,11 +9,11 @@ import { CompaniasService } from '../../services/companias';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
-export class Register implements OnInit {
+export class Register implements OnInit, AfterViewInit {
 
   nombre_completo = "";
   correo = "";
@@ -34,63 +34,46 @@ export class Register implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.companiasService.listar()
       .subscribe((res: any) => {
         this.companias = res.data;
       });
+  }
 
+  // 🔥 MISMO COMPORTAMIENTO QUE LOGIN
+  ngAfterViewInit() {
+    const video = document.querySelector('.video-bg') as HTMLVideoElement;
+
+    if (video) {
+      video.muted = true;
+      video.play().catch(() => {});
+    }
   }
 
   onCompaniaChange() {
-
-    if (this.compania_id === "crear") {
-      this.crearCompaniaModo = true;
-    } else {
-      this.crearCompaniaModo = false;
-    }
-
-  }
-
-  activarCrearCompania() {
-    this.crearCompaniaModo = true;
+    this.crearCompaniaModo = this.compania_id === "crear";
   }
 
   crearCompania() {
-
     this.companiasService.crear({ nombre: this.nuevaCompania })
       .subscribe({
-
-        next: (res: any) => {
-
+        next: () => {
           alert("Compañía creada");
 
-          // recargar lista
           this.companiasService.listar()
             .subscribe((data: any) => {
-
               this.companias = data.data;
-
-              const ultima = this.companias[0];
-              this.compania_id = ultima.id;
-
+              this.compania_id = this.companias[0].id;
             });
 
           this.crearCompaniaModo = false;
           this.nuevaCompania = "";
-
         },
-
-        error: (err: any) => {
-          alert("Error creando compañía");
-        }
-
+        error: () => alert("Error creando compañía")
       });
-
   }
 
   registrar() {
-
     const data = {
       compania_id: this.compania_id,
       rol_id: this.rol_id,
@@ -101,20 +84,14 @@ export class Register implements OnInit {
 
     this.usuarios.registrar(data)
       .subscribe({
-
-        next: (res: any) => {
-
+        next: () => {
           alert("Usuario creado correctamente");
           this.router.navigate(["/"]);
-
         },
-
         error: (err: any) => {
           alert(err.error?.mensaje || "Error al registrar");
         }
-
       });
-
   }
 
 }

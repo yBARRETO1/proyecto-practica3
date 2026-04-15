@@ -13,15 +13,11 @@ import { CommonModule } from '@angular/common';
 export class Dashboard {
 
   menuAbierto = false;
-
   mostrarLogout = true;
-
   usuario: any;
 
   constructor(private router: Router) {
-
     this.usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
-
   }
 
   toggleMenu() {
@@ -29,12 +25,9 @@ export class Dashboard {
   }
 
   logout() {
-
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
-
     this.router.navigate(["/"]);
-
   }
 
 }

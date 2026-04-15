@@ -1,36 +1,59 @@
 <div class="auth-container">
 
+  <!-- VIDEO DE FONDO -->
+  <video 
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    preload="auto"
+    disablePictureInPicture
+    class="video-bg"
+  >
+    <source src="background.mp4" type="video/mp4">
+  </video>
+
+  <!-- CONTENIDO -->
   <div class="auth-card">
 
     <h2>Iniciar Sesión</h2>
+    <p class="subtitle">Accede a tu cuenta</p>
 
     <form (ngSubmit)="login()">
 
-      <input
-      type="email"
-      [(ngModel)]="correo"
-      name="correo"
-      placeholder="Correo"
-      required>
+      <div class="input-group">
+        <span class="icon">📧</span>
+        <input 
+          type="email" 
+          [(ngModel)]="correo" 
+          name="correo" 
+          placeholder="Correo electrónico" 
+          required>
+      </div>
 
-      <input
-      type="password"
-      [(ngModel)]="contrasena"
-      name="contrasena"
-      placeholder="Contraseña"
-      required>
+      <div class="input-group">
+        <span class="icon">🔒</span>
+        <input 
+          type="password" 
+          [(ngModel)]="contrasena" 
+          name="contrasena" 
+          placeholder="Contraseña" 
+          required>
+      </div>
 
       <button type="submit">
-        Ingresar
+        Iniciar sesión
       </button>
 
     </form>
 
+    <!-- 🔥 RECUPERADO -->
     <div class="link">
       ¿No tienes cuenta?
       <a routerLink="/register">Regístrate</a>
     </div>
 
+    <!-- 🔥 RECUPERADO -->
     <div *ngIf="mensaje" class="mensaje-exito">
       {{mensaje}}
     </div>

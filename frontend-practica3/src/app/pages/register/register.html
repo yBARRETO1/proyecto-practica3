@@ -1,59 +1,107 @@
 <div class="auth-container">
 
-<div class="auth-card">
+  <!-- VIDEO DE FONDO -->
+  <video 
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    preload="auto"
+    class="video-bg"
+  >
+    <source src="background.mp4" type="video/mp4">
+  </video>
 
-<h2>Crear Usuario</h2>
+  <!-- CARD -->
+  <div class="auth-card">
 
-<input
-type="text"
-placeholder="Nombre completo"
-[(ngModel)]="nombre_completo">
+    <h2>Crear cuenta</h2>
+    <p class="subtitle">Regístrate para comenzar</p>
 
-<input
-type="email"
-placeholder="Correo"
-[(ngModel)]="correo">
+    <form>
 
-<input
-type="password"
-placeholder="Contraseña"
-[(ngModel)]="contrasena">
+      <!-- NOMBRE -->
+      <div class="input-group">
+        <span class="icon">👤</span>
+        <input 
+          type="text"
+          name="nombre"
+          [(ngModel)]="nombre_completo"
+          placeholder="Nombre completo"
+          required>
+      </div>
 
+      <!-- CORREO -->
+      <div class="input-group">
+        <span class="icon">📧</span>
+        <input 
+          type="email"
+          name="correo"
+          [(ngModel)]="correo"
+          placeholder="Correo electrónico"
+          required>
+      </div>
 
-<select [(ngModel)]="compania_id" (change)="onCompaniaChange()">
+      <!-- PASSWORD -->
+      <div class="input-group">
+        <span class="icon">🔒</span>
+        <input 
+          type="password"
+          name="contrasena"
+          [(ngModel)]="contrasena"
+          placeholder="Contraseña"
+          required>
+      </div>
 
-<option [ngValue]="null">Seleccione compañía</option>
+      <!-- COMPAÑÍA -->
+      <div class="input-group">
+        <span class="icon">🏢</span>
+        <select 
+          name="compania"
+          [(ngModel)]="compania_id"
+          (change)="onCompaniaChange()"
+        >
+          <option [ngValue]="null">Seleccione compañía</option>
 
-<option *ngFor="let c of companias" [ngValue]="c.id">
-{{c.nombre}}
-</option>
+          <option *ngFor="let c of companias" [ngValue]="c.id">
+            {{c.nombre}}
+          </option>
 
-<option value="crear">➕ Crear nueva compañía</option>
+          <option value="crear">➕ Crear nueva compañía</option>
+        </select>
+      </div>
 
-</select>
+      <!-- CREAR COMPAÑÍA -->
+      <div *ngIf="crearCompaniaModo">
 
+        <div class="input-group">
+          <span class="icon">✏️</span>
+          <input 
+            type="text"
+            [(ngModel)]="nuevaCompania"
+            name="nuevaCompania"
+            placeholder="Nombre nueva compañía">
+        </div>
 
+        <button type="button" class="secondary" (click)="crearCompania()">
+          Guardar compañía
+        </button>
 
+      </div>
 
+      <!-- BOTÓN -->
+      <button type="button" (click)="registrar()">
+        Crear cuenta
+      </button>
 
-<div *ngIf="crearCompaniaModo" class="nueva-compania">
+    </form>
 
-<input
-type="text"
-placeholder="Nombre nueva compañía"
-[(ngModel)]="nuevaCompania">
+    <!-- LINK LOGIN -->
+    <div class="link">
+      ¿Ya tienes cuenta?
+      <a routerLink="/">Inicia sesión</a>
+    </div>
 
-<button (click)="crearCompania()">
-Guardar compañía
-</button>
-
-</div>
-
-
-<button (click)="registrar()">
-Registrar Usuario
-</button>
-
-</div>
+  </div>
 
 </div>
